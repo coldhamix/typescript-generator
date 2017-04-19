@@ -37,6 +37,7 @@ public abstract class ModelParser {
 
     private Model parseQueue() {
         final JaxrsApplicationParser jaxrsApplicationParser = new JaxrsApplicationParser(settings);
+        final SpringApplicationParser springApplicationParser = new SpringApplicationParser(settings);
         final Collection<Type> parsedTypes = new ArrayList<>();  // do not use hashcodes, we can only count on `equals` since we use custom `ParameterizedType`s
         final List<BeanModel> beans = new ArrayList<>();
         final List<EnumModel<?>> enums = new ArrayList<>();
@@ -46,6 +47,12 @@ public abstract class ModelParser {
                 continue;
             }
             parsedTypes.add(sourceType.type);
+
+            final SpringApplicationParser.Result springResult = springApplicationParser.tryParse(sourceType);
+            if (springResult != null) {
+                typeQueue.addAll(springResult.discoveredTypes);
+                continue;
+            }
 
             // JAX-RS resource
             final JaxrsApplicationParser.Result jaxrsResult = jaxrsApplicationParser.tryParse(sourceType);
@@ -73,7 +80,13 @@ public abstract class ModelParser {
                 }
             }
         }
-        return new Model(beans, enums, jaxrsApplicationParser.getModel());
+
+        JaxrsApplicationModel model = JaxrsApplicationModel.concatModel(
+                jaxrsApplicationParser.getModel(),
+                springApplicationParser.getModel()
+        );
+
+        return new Model(beans, enums, model);
     }
 
     protected abstract BeanModel parseBean(SourceType<Class<?>> sourceClass);

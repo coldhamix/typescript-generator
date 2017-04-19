@@ -30,4 +30,15 @@ public class JaxrsApplicationModel {
         return methods;
     }
 
+    public static JaxrsApplicationModel concatModel(JaxrsApplicationModel a, JaxrsApplicationModel b) {
+        JaxrsApplicationModel result = new JaxrsApplicationModel();
+
+        result.applicationPath = a.applicationPath != null ? a.applicationPath : b.applicationPath;
+        result.applicationName = a.applicationName != null ? a.applicationName : b.applicationName;
+        result.methods.addAll(a.getMethods());
+        result.methods.addAll(b.getMethods());
+
+        return result;
+    }
+
 }

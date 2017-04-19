@@ -359,7 +359,7 @@ public class ModelCompiler {
         final Map<Symbol, List<TsMethodModel>> groupedMethods = processJaxrsMethods(jaxrsApplication, symbolTable, groupingSuffix, responseSymbol, optionsType, true);
         for (Map.Entry<Symbol, List<TsMethodModel>> entry : groupedMethods.entrySet()) {
             final Symbol symbol = settings.generateJaxrsApplicationInterface ? symbolTable.addSuffixToSymbol(entry.getKey(), "Client") : entry.getKey();
-            final TsType interfaceType = settings.generateJaxrsApplicationInterface ? new TsType.ReferenceType(entry.getKey()) : null;
+            final TsType interfaceType = settings.generateJaxrsApplicationInterface ? new TsType.GenericReferenceType(entry.getKey(), optionsGenericVariable) : null;
             final TsBeanModel clientModel = new TsBeanModel(null, TsBeanCategory.Service, true, symbol, typeParameters, null, null,
                     Utils.listFromNullable(interfaceType), null, constructor, entry.getValue(), null);
             tsModel.getBeans().add(clientModel);
