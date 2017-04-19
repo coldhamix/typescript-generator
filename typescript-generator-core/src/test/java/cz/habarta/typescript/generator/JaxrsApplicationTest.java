@@ -348,38 +348,6 @@ public class JaxrsApplicationTest {
         Assert.assertTrue(errorMessage, output.contains("type RestResponse<R> = AxiosPromise;"));
     }
 
-    @Test
-    public void testNamespacingPerResource() {
-        final Settings settings = TestUtils.settings();
-        settings.outputFileType = TypeScriptFileType.implementationFile;
-        settings.generateJaxrsApplicationInterface = true;
-        settings.generateJaxrsApplicationClient = true;
-        settings.jaxrsNamespacing = JaxrsNamespacing.perResource;
-        final String output = new TypeScriptGenerator(settings).generateTypeScript(Input.from(OrganizationApplication.class));
-        final String errorMessage = "Unexpected output: " + output;
-        Assert.assertTrue(errorMessage, !output.contains("class OrganizationApplicationClient"));
-        Assert.assertTrue(errorMessage, output.contains("class OrganizationsResourceClient implements OrganizationsResource "));
-        Assert.assertTrue(errorMessage, !output.contains("class OrganizationResourceClient"));
-        Assert.assertTrue(errorMessage, output.contains("class PersonResourceClient implements PersonResource "));
-    }
-
-    @Test
-    public void testNamespacingByAnnotation() {
-        final Settings settings = TestUtils.settings();
-        settings.outputFileType = TypeScriptFileType.implementationFile;
-        settings.generateJaxrsApplicationInterface = true;
-        settings.generateJaxrsApplicationClient = true;
-        settings.jaxrsNamespacing = JaxrsNamespacing.byAnnotation;
-        settings.jaxrsNamespacingAnnotation = Api.class;
-        final String output = new TypeScriptGenerator(settings).generateTypeScript(Input.from(OrganizationApplication.class));
-        final String errorMessage = "Unexpected output: " + output;
-        Assert.assertTrue(errorMessage, output.contains("class OrgApiClient implements OrgApi "));
-        Assert.assertTrue(errorMessage, output.contains("class OrganizationApplicationClient implements OrganizationApplication "));
-        Assert.assertTrue(errorMessage, !output.contains("class OrganizationsResourceClient"));
-        Assert.assertTrue(errorMessage, !output.contains("class OrganizationResourceClient"));
-        Assert.assertTrue(errorMessage, !output.contains("class PersonResourceClient"));
-    }
-
     @ApplicationPath("api")
     public static class OrganizationApplication extends Application {
         @Override
