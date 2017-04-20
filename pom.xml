@@ -3,17 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.habarta.typescript-generator</groupId>
-    <artifactId>typescript-generator</artifactId>
+    <artifactId>typescript-generator-spring</artifactId>
     <packaging>pom</packaging>
-    <version>1.23.311</version>
+    <version>1.0.0</version>
     <name>typescript-generator</name>
     <description>Generates TypeScript declaration file from specified java classes.</description>
     <url>https://github.com/vojtechhabarta/typescript-generator</url>
 
     <modules>
-        <module>typescript-generator-core</module>
-        <module>typescript-generator-maven-plugin</module>
-        <module>typescript-generator-gradle-plugin</module>
+        <module>typescript-generator-spring-core</module>
+        <module>typescript-generator-spring-maven-plugin</module>
+        <module>typescript-generator-spring-gradle-plugin</module>
     </modules>
 
     <licenses>
@@ -27,6 +27,9 @@
         <developer>
             <name>Vojtech Habarta</name>
             <email>vojtech@habarta.cz</email>
+        </developer>
+        <developer>
+            <name>Vadim Khamzin</name>
         </developer>
     </developers>
 

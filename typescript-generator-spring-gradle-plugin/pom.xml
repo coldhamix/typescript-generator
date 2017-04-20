@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>cz.habarta.typescript-generator</groupId>
-        <artifactId>typescript-generator</artifactId>
-        <version>1.23.311</version>
+        <artifactId>typescript-generator-spring</artifactId>
+        <version>1.0.0</version>
     </parent>
 
-    <artifactId>typescript-generator-gradle-plugin</artifactId>
+    <artifactId>typescript-generator-spring-gradle-plugin</artifactId>
     <packaging>jar</packaging>
-    <name>typescript-generator-gradle-plugin</name>
+    <name>typescript-generator-spring-gradle-plugin</name>
 
     <dependencies>
         <dependency>
@@ -41,8 +41,8 @@
         </dependency>
         <dependency>
             <groupId>cz.habarta.typescript-generator</groupId>
-            <artifactId>typescript-generator-core</artifactId>
-            <version>1.23.311</version>
+            <artifactId>typescript-generator-spring-core</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
